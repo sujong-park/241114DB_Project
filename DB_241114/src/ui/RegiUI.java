@@ -111,7 +111,7 @@ public class RegiUI extends JFrame {
         }
 
         // UserDTO 객체 생성 후 회원가입 시도
-        UserDTO user = new UserDTO(id, name, password);
+        UserDTO user = new UserDTO(id, password, name);
         boolean success = userDAO.register(user);
 
         if (success) {
