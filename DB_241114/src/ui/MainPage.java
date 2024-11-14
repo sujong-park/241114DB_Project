@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 
 public class MainPage extends JFrame {
     public MainPage(String username) {  // 사용자 이름을 인자로 받음
-        setTitle("메인");
+        setTitle("메인페이지");
         setSize(600, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null); // 화면 가운데에 창 배치
@@ -82,7 +82,7 @@ public class MainPage extends JFrame {
 
     public static void main(String[] args) {
         // 로그인된 사용자의 이름을 예시로 전달 ("홍길동"으로 가정)
-        String loggedInUsername = "홍길동"; 
+        String loggedInUsername = "nameLabel"; 
         new MainPage(loggedInUsername);
     }
 }
