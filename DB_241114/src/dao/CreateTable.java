@@ -258,7 +258,11 @@ public class CreateTable {
         for (String sql : CreateTables) {
             executeUpdateSql(sql);
         }
-//      해당 주석처리한 코드 실행시 모든 테이블, 트리거, 시퀀스 삭제.
+
+        
+        //      해당 주석처리한 코드 실행시 모든 테이블, 트리거, 시퀀스 삭제.
 //  deleteTable();
- }
+
+    
+    }
 }
