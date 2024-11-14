@@ -22,7 +22,7 @@ public class LoginUI extends JFrame {
 	private JPasswordField passwordField;
 	private JButton loginButton;
 	private JButton registerButton;
-	private UserDAO userDAO; // 인스턴스 이름 수정
+	private UserDAO userDAO; // 인스턴스 이름 수정1
 
 	public LoginUI() {
 		setTitle("전자도서관 로그인");

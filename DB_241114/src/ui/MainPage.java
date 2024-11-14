@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 public class MainPage extends JFrame {
     public MainPage(String username) {  // 사용자 이름을 인자로 받음
         setTitle("메인페이지");
-        setSize(600, 400);
+        setSize(1060, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null); // 화면 가운데에 창 배치
 
