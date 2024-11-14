@@ -33,7 +33,7 @@ public class UserDAO {
 
 	// 회원가입 메서드
 	public boolean register(UserDTO user) {
-		String sql = "INSERT INTO KUSERTABLE (USERID, USERPASSWORD, USERNAME) VALUES (?, ?, ?)";
+		String sql = "INSERT INTO KUSERTABLE (, USERID, USERNAME, USERPASSWORD, ) VALUES (?, ?, ?)";
 		try (PreparedStatement stmt = conn.prepareStatement(sql)) {
 			stmt.setString(1, user.getUserId());
 			stmt.setString(2, user.getPassword());
