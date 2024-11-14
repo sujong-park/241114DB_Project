@@ -3,7 +3,7 @@ package dao;
 import java.sql.*;
 import java.util.*;
 
-import dto.BookDTO;
+import dto.RentalDTO;
 
 public class MyBookDAO {
     private Connection conn;
@@ -16,19 +16,19 @@ public class MyBookDAO {
         }
     }
 
-    // 전체 책 목록 조회
-    public List<BookDTO> getAllBooks() {
-        List<BookDTO> books = new ArrayList<>();
-        String sql = "SELECT * FROM KBOOKTABLE";
+ // 전체 책 목록 조회
+    public ArrayList<RentalDTO> getRentalAllBooks() {
+        ArrayList<RentalDTO> books = new ArrayList<>();
+        String sql = "SELECT * FROM KRENTALTABLE";
         try (Statement stmt = conn.createStatement()) {
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
-                BookDTO book = new BookDTO();
-                book.setBookId(rs.getInt("book_id"));
-                book.setTitle(rs.getString("title"));
-                book.setAuthor(rs.getString("author"));
-                book.setPublisher(rs.getString("publisher"));
-                book.setGenre(rs.getString("genre"));
+                RentalDTO book = new RentalDTO();
+                book.setRentalId(rs.getInt("RENTALNO"));  // 컬럼 이름을 실제 테이블에 맞게 수정
+                book.setBookId(rs.getInt("BOOKNO"));      // 컬럼 이름을 실제 테이블에 맞게 수정
+                book.setUserId(rs.getInt("USERNO"));      // 컬럼 이름을 실제 테이블에 맞게 수정
+                book.setRentalDate(rs.getString("RENTALSTARTDATE")); // 대여시작일 컬럼 이름 수정
+                book.setReturnDate(rs.getString("RENTALENDDATE"));  // 대여종료일 컬럼 이름 수정
                 books.add(book);
             }
         } catch (SQLException e) {
@@ -36,5 +36,13 @@ public class MyBookDAO {
         }
         return books;
     }
+
+
+
+
+
+
+
+
 }
 

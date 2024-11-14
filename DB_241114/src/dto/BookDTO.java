@@ -6,6 +6,8 @@ public class BookDTO {
     private String author;
     private String publisher;
     private String genre;
+    
+    
 
     // Getter and Setter methods
     public int getBookId() { return bookId; }
