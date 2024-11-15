@@ -26,6 +26,14 @@ public class CgwDAO {
         }
     }
 
+    public static String buildFinalQuery(String sql, ArrayList<String> inputData, ArrayList<Boolean> inputType) {
+        for (int i = 0; i < inputData.size(); i++) {
+            String param = inputType.get(i) ? "'" + inputData.get(i) + "'" : inputData.get(i);
+            sql = sql.replaceFirst("\\?", param);
+        }
+        return sql;
+    }
+
     public static LinkedHashMap<String, ArrayList<String>> getData(ArrayList<String> inputData, ArrayList<Boolean> inputType, String sql) {
         LinkedHashMap<String, ArrayList<String>> data = new LinkedHashMap<>();
 
