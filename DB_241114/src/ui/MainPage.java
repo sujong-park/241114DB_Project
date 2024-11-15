@@ -75,7 +75,7 @@ public class MainPage extends JFrame {
                 // 로그아웃 처리: 사용자를 로그인 화면으로 리디렉션하거나, 세션 종료
                 JOptionPane.showMessageDialog(null, "로그아웃 되었습니다.");
                 dispose();  // 현재 창 닫기 (로그아웃 후 로그인 화면으로 이동)
-                new LoginUI(); // 로그인 페이지로 돌아가기
+                new LoginUI().setVisible(true); // 로그인 페이지로 돌아가기
             }
         });
 
