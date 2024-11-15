@@ -240,7 +240,7 @@ public class MainPage extends JFrame {
         CgwDAO.executeUpdateSql(sql);
     }
 
-    public static void main(String[] args) {
+    public static void main1(String[] args) {
         // 로그인된 사용자의 이름과 번호를 예시로 전달 ("홍길동"과 번호 1)
         String loggedInUsername = "홍길동";
         int loggedInUserNo = 1;  // 예시 사용자 번호
