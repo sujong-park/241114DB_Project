@@ -52,7 +52,7 @@ public class BookCartlist extends JFrame {
                 int selectedRow = bookTable.getSelectedRow();
                 if (selectedRow != -1) {
                     int bookNo = (int) tableModel.getValueAt(selectedRow, 0);
-                    int userNo = 1; // 대여하는 사용자 ID (예: 1로 설정)
+                    int userNo = Search.userNum; // 대여하는 사용자 ID (예: 1로 설정)
                     bookDAO.rentBook(bookNo, userNo); // 대여 메소드 호출
                     JOptionPane.showMessageDialog(null, "책이 대여되었습니다.");
                     loadBooks(); // 대여 후 책 목록 새로 고침
@@ -115,7 +115,8 @@ public class BookCartlist extends JFrame {
             JOIN KBOOKTABLE B ON SC.BOOKNO = B.BOOKNO
             JOIN KAUTHORTABLE A ON B.AUTHORNO = A.AUTHORNO
             JOIN KPUBLISHERTABLE P ON B.PUBLISHERNO = P.PUBLISHERNO
-        """;
+            JOIN KUSERTABLE U ON SC.USERNO = U.USERNO
+            WHERE U.USERNO =""" + Search.userNum;
 
         // 테이블 초기화
         tableModel.setRowCount(0); // 기존 데이터 삭제
@@ -138,12 +139,12 @@ public class BookCartlist extends JFrame {
         }
     }
 //
-//    public static void main(String[] args) {
-//        SwingUtilities.invokeLater(() -> {
-//            BookCartlist manager = new BookCartlist();
-//            manager.setVisible(true);
-//        });
-//    }
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            BookCartlist manager = new BookCartlist();
+            manager.setVisible(true);
+        });
+    }
 }
 
 

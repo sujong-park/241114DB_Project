@@ -3,6 +3,7 @@ package ui;
 
 import dao.CgwDAO;
 import dao.CgwSQL;
+import dao.KdhBookDAO;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -18,6 +19,8 @@ public class UI2Cgw extends JFrame {
     private JComboBox<String> genreComboBox;
     private String userId;
     private String userName;
+    private JTable boardTable;
+    private KdhBookDAO bookDAO = new KdhBookDAO();
 
     public String getComboBoxString() {
         if (genreComboBox.getSelectedItem() != null) {
@@ -40,7 +43,7 @@ public class UI2Cgw extends JFrame {
 
         columnNames = new String[] { "NO", "제목", "작가", "출판사", "장르", "대출가능여부"};
         tableModel = new DefaultTableModel(columnNames, 0);
-        JTable boardTable = new JTable(tableModel);
+        boardTable = new JTable(tableModel);
         JScrollPane scrollPane = new JScrollPane(boardTable);
         
         String[] genres = {"책이름", "장르", "출판사", "작가"};
@@ -80,12 +83,20 @@ public class UI2Cgw extends JFrame {
         ViewPanel.add(new JLabel("목록"), BorderLayout.NORTH);
         ViewPanel.add(scrollPane, BorderLayout.CENTER);
 
-        add(ViewPanel, BorderLayout.CENTER);
+        JPanel takeButtonPanel = new JPanel();
+        takeButtonPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+        JButton rentalButton = new JButton("대여");
+        JButton shoppingCartButton = new JButton("장바구니");
+        takeButtonPanel.add(rentalButton);
+        takeButtonPanel.add(shoppingCartButton);
 
+        add(ViewPanel, BorderLayout.CENTER);
+        add(takeButtonPanel, BorderLayout.SOUTH);
 
         allShowButton.addActionListener(e -> allShow());  // 전체 책 보기
         topButton.addActionListener(e -> top());         // TOP10
         myPageButton.addActionListener(e -> myPage());   // 마이페이지
+        rentalButton.addActionListener(e -> rentalClick());
 
         setVisible(true);
     }
@@ -111,8 +122,18 @@ public class UI2Cgw extends JFrame {
         new MyPageUI().setVisible(true);
     }
 
+    public void rentalClick() {
+        int selectedRow = boardTable.getSelectedRow();
+        if (selectedRow != -1) {
+            Object value = tableModel.getValueAt(selectedRow, 0);
+            int bookNo = Integer.parseInt((String) value);
+            bookDAO.rentBook(bookNo, Search.userNum); // 대여 메소드 호출
+            JOptionPane.showMessageDialog(null, "책이 대여되었습니다.");
+        }
+    }
+
     public static void main(String[] args) {
-//        new UI2Cgw();  // UI 실행
+        new UI2Cgw("id", "pas");  // UI 실행
     }
 }
 
