@@ -21,7 +21,7 @@ public class MainPage extends JFrame {
         userLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // 버튼 생성 및 이벤트 추가
-        JButton bookRegisterButton = new JButton("도서등록");
+        JButton bookRegisterButton = new JButton("도서관");
         JButton myLibraryButton = new JButton("나의 대여목록");
         JButton cartButton = new JButton("장바구니");
         JButton logoutButton = new JButton("로그아웃");
@@ -37,7 +37,9 @@ public class MainPage extends JFrame {
         bookRegisterButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "도서등록 페이지로 이동합니다.");
+                // "도서관" 버튼 클릭 시 UI2 클래스의 인스턴스를 열도록 수정
+                new UI2(); // UI2 클래스의 창 열기
+                dispose();  // MainPage 창 닫기 (선택 사항)
             }
         });
 
