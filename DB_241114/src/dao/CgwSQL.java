@@ -20,8 +20,8 @@ public class CgwSQL {
                             SELECT 1
                             FROM KRENTALTABLE R
                             WHERE R.USERNO = ? AND R.BOOKNO = B.BOOKNO
-                        ) THEN 'FALSE'
-                        ELSE 'TRUE'
+                        ) THEN '대여불가'
+                        ELSE '대여가능'
                     END AS IS_AVAILABLE
                 FROM
                     KBOOKTABLE B
@@ -50,8 +50,8 @@ public class CgwSQL {
                             SELECT 1
                             FROM KRENTALTABLE R
                             WHERE R.USERNO = ? AND R.BOOKNO = B.BOOKNO
-                        ) THEN 'FALSE'
-                        ELSE 'TRUE'
+                        ) THEN '대여불가'
+                        ELSE '대여가능'
                     END AS IS_AVAILABLE,
                     ROW_NUMBER() OVER (ORDER BY B.COUNT ASC) AS ROW_NUM
                 FROM
@@ -82,8 +82,8 @@ public class CgwSQL {
                             SELECT 1
                             FROM KRENTALTABLE R
                             WHERE R.USERNO = ? AND R.BOOKNO = B.BOOKNO
-                        ) THEN 'FALSE'
-                        ELSE 'TRUE'
+                        ) THEN '대여불가'
+                        ELSE '대여가능'
                     END AS IS_AVAILABLE
                 FROM
                     KBOOKTABLE B
