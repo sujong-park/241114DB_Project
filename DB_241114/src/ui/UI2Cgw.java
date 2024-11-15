@@ -1,9 +1,15 @@
 package ui;
 
 
+import dao.CgwDAO;
+import dao.CgwSQL;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 public class UI2Cgw extends JFrame {
     private JPanel ViewPanel;
@@ -78,15 +84,24 @@ public class UI2Cgw extends JFrame {
     }
 
 
-    private void allShow() { 
+    private void allShow() {
+        ArrayList<String> inputData = new ArrayList<>(List.of(Search.userNum + ""));
+        LinkedHashMap<String, ArrayList<String>> dataMaps = CgwDAO.getData(inputData, CgwSQL.allShowSqlType, CgwSQL.allShowSql);
+        String[][] dataArrays = Search.convertMapTo2DArray(dataMaps);
+        tableModel.setDataVector(dataArrays, columnNames);
     }
 
     private void top() {
-        // TOP10 책 보기 로직 구현
+        ArrayList<String> inputData = new ArrayList<>(List.of(Search.userNum + ""));
+        LinkedHashMap<String, ArrayList<String>> dataMaps = CgwDAO.getData(inputData, CgwSQL.top10ShowSqlType, CgwSQL.top10ShowSql);
+        String[][] dataArrays = Search.convertMapTo2DArray(dataMaps);
+        tableModel.setDataVector(dataArrays, columnNames);
     }
 
     private void myPage() {
         // 마이페이지 보기 로직 구현
+        this.dispose();
+        new MyPageUI().setVisible(true);
     }
 
     public static void main(String[] args) {

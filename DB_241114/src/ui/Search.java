@@ -9,7 +9,7 @@ import java.util.*;
 public class Search extends JPanel {
     JTextField searchTextField = new JTextField(36);
     JButton searchButton = new JButton("검색");
-    public int userNum = 1;
+    public static int userNum = 1;
     private final UI2Cgw parent;
     private String searchTitle;
 
