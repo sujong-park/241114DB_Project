@@ -51,6 +51,8 @@ public class MainPage extends JFrame {
                 dispose();  // MainPage 창 닫기 (선택 사항)
             }
         });
+        
+        
 
         myLibraryButton.addActionListener(new ActionListener() {
             @Override
