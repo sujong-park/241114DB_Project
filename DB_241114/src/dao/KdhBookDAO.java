@@ -42,12 +42,21 @@ public class KdhBookDAO {
 
     // 대여 메소드
     public void rentBook(int bookNo, int userNo) {
-        String sql = "INSERT INTO KRENTALTABLE (BOOKNO, USERNO, RENTALSTARTDATE, RENTALENDDATE) VALUES (?, ?, SYSDATE, SYSDATE + 7)";
+        String rentalSql = "INSERT INTO KRENTALTABLE (BOOKNO, USERNO, RENTALSTARTDATE, RENTALENDDATE) VALUES (?, ?, SYSDATE, SYSDATE + 7)";
+        String deleteSql = "DELETE FROM KSHOPPINGCARTTABLE WHERE BOOKNO = ?";
+
         try (Connection con = DriverManager.getConnection(url, userid, passwd);
-             PreparedStatement pstmt = con.prepareStatement(sql)) {
-            pstmt.setInt(1, bookNo);
-            pstmt.setInt(2, userNo);
-            pstmt.executeUpdate();
+             PreparedStatement rentalStmt = con.prepareStatement(rentalSql);
+             PreparedStatement deleteStmt = con.prepareStatement(deleteSql)) {
+            
+            // 대여 정보 삽입
+            rentalStmt.setInt(1, bookNo);
+            rentalStmt.setInt(2, userNo);
+            rentalStmt.executeUpdate();
+
+            // 장바구니에서 삭제
+            deleteStmt.setInt(1, bookNo);
+            deleteStmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
