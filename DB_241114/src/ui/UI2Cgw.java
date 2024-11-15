@@ -29,7 +29,7 @@ public class UI2Cgw extends JFrame {
     public UI2Cgw(String userId, String userName) {
         this.userId = userId;
         this.userName = userName;
-        Search.userNum = Integer.parseInt(userId);
+//        Search.userNum = Integer.parseInt(userId);
         setTitle("전자 도서관");
         setSize(700, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -106,7 +106,7 @@ public class UI2Cgw extends JFrame {
     private void myPage() {
         // 마이페이지 보기 로직 구현
         this.dispose();
-        new MainPage(userId, userName).setVisible(true);
+        new MyPageUI().setVisible(true);
     }
 
     public static void main(String[] args) {
