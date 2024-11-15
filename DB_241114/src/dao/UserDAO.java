@@ -44,4 +44,18 @@ public class UserDAO {
 		}
 		return false;
 	}
+	// 사용자 이름가져오는 메서드
+	public String getUserNameById(String userId) {
+	    String sql = "SELECT USERNAME FROM KUSERTABLE WHERE USERID = ?";
+	    try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+	        stmt.setString(1, userId);
+	        ResultSet rs = stmt.executeQuery();
+	        if (rs.next()) {
+	            return rs.getString("USERNAME"); // 사용자 이름 반환
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return null; // 사용자 이름을 찾지 못한 경우 null 반환
+	}
 }

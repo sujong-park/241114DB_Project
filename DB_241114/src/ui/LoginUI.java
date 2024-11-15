@@ -98,11 +98,16 @@ public class LoginUI extends JFrame {
 
 		boolean loginSuccessful = authenticateUser(memberID, password);
 		if (loginSuccessful) {
+	        String userName = userDAO.getUserNameById(memberID); // 사용자 이름 가져오기
 			JOptionPane.showMessageDialog(this, "로그인 성공!", "알림", JOptionPane.INFORMATION_MESSAGE);
+			new MainPage(userName).setVisible(true);
+			this.dispose();
+			
 		} else {
 			JOptionPane.showMessageDialog(this, "아이디 또는 비밀번호가 잘못되었습니다.", "오류", JOptionPane.ERROR_MESSAGE);
 		}
 	}
+	
 
 	private void openRegistrationWindow() {
 		// 회원가입 창을 열고 현재 창을 닫습니다.
