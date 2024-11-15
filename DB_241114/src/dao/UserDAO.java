@@ -44,6 +44,7 @@ public class UserDAO {
 		}
 		return false;
 	}
+
 	// 사용자 이름가져오는 메서드
 	public String getUserNameById(String userId) {
 	    String sql = "SELECT USERNAME FROM KUSERTABLE WHERE USERID = ?";
@@ -58,4 +59,6 @@ public class UserDAO {
 	    }
 	    return null; // 사용자 이름을 찾지 못한 경우 null 반환
 	}
+
+
 }
