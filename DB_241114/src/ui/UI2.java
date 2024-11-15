@@ -1,6 +1,5 @@
 package ui;
 
-
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
@@ -15,15 +14,13 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 public class UI2 extends JFrame {
-	 private JTextField wordField;
-	    private JPanel ViewPanel;
-	    private DefaultTableModel tableModel;
+    private JTextField wordField;
+    private JPanel ViewPanel;
+    private DefaultTableModel tableModel;
 
-	    private String[] columnNames;
-	    JTable boardTable ;
-	    JScrollPane scrollPane ;
-
-   
+    private String[] columnNames;
+    JTable boardTable ;
+    JScrollPane scrollPane ;
 
     public UI2() {
         setTitle("전자 도서관");
@@ -33,12 +30,12 @@ public class UI2 extends JFrame {
 
         JPanel inputPanel = new JPanel();
         inputPanel.setLayout(new FlowLayout());
-        
+
         String[] genres = {"전체", "장르", "출판사", "작가"};
         JComboBox<String> genreComboBox = new JComboBox<>(genres);
         inputPanel.add(new JLabel("검색 옵션:"));
         inputPanel.add(genreComboBox);
-    
+
         wordField = new JTextField(36);
         inputPanel.add(wordField);
 
@@ -52,11 +49,9 @@ public class UI2 extends JFrame {
         JButton topButton = new JButton("TOP10");
         JButton myPageButton = new JButton("마이페이지");
 
-
         buttonPanel.add(allShowButton);
         buttonPanel.add(topButton);
         buttonPanel.add(myPageButton);
-
 
         JPanel northPanel = new JPanel();
         northPanel.setLayout(new BorderLayout());
@@ -64,7 +59,6 @@ public class UI2 extends JFrame {
         northPanel.add(buttonPanel, BorderLayout.CENTER);
 
         add(northPanel, BorderLayout.NORTH);
-
 
         ViewPanel = new JPanel();
         ViewPanel.setLayout(new BorderLayout());
@@ -79,7 +73,6 @@ public class UI2 extends JFrame {
 
         add(ViewPanel, BorderLayout.CENTER);
 
-
         allShowButton.addActionListener(e -> allShow());  // 전체 책 보기
         topButton.addActionListener(e -> top());         // TOP10
         myPageButton.addActionListener(e -> myPage());   // 마이페이지
@@ -87,8 +80,8 @@ public class UI2 extends JFrame {
         setVisible(true);
     }
 
-
-    private void allShow() { 
+    private void allShow() {
+        // 전체 책 보기 로직 구현
     }
 
     private void genre() {
@@ -115,4 +108,3 @@ public class UI2 extends JFrame {
         new UI2();  // UI 실행
     }
 }
-
