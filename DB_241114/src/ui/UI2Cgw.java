@@ -16,6 +16,8 @@ public class UI2Cgw extends JFrame {
     public DefaultTableModel tableModel;
     private String[] columnNames;
     private JComboBox<String> genreComboBox;
+    private String userId;
+    private String userName;
 
     public String getComboBoxString() {
         if (genreComboBox.getSelectedItem() != null) {
@@ -24,7 +26,10 @@ public class UI2Cgw extends JFrame {
         else return "";
     }
 
-    public UI2Cgw() {
+    public UI2Cgw(String userId, String userName) {
+        this.userId = userId;
+        this.userName = userName;
+        Search.userNum = Integer.parseInt(userId);
         setTitle("전자 도서관");
         setSize(700, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -101,11 +106,11 @@ public class UI2Cgw extends JFrame {
     private void myPage() {
         // 마이페이지 보기 로직 구현
         this.dispose();
-        new MyPageUI().setVisible(true);
+        new MainPage(userId, userName).setVisible(true);
     }
 
     public static void main(String[] args) {
-        new UI2Cgw();  // UI 실행
+//        new UI2Cgw();  // UI 실행
     }
 }
 
