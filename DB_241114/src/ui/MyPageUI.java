@@ -85,7 +85,8 @@ public class MyPageUI extends JFrame {
     }
 
     private void cart() {
-
+    	 // 장바구니 버튼 클릭 시 BookCartlist 창을 띄우기
+        new BookCartlist().setVisible(true);  // BookCartlist 팝업 열기
     }
 
     private void info() {

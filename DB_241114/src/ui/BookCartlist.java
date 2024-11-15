@@ -27,7 +27,7 @@ public class BookCartlist extends JFrame {
         bookDAO = new KdhBookDAO(); // KdhBookDAO 인스턴스 생성
         setTitle("나의 장바구니");
         setSize(800, 600);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
         // 테이블 모델 설정
@@ -135,13 +135,13 @@ public class BookCartlist extends JFrame {
             e.printStackTrace();
         }
     }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            BookCartlist manager = new BookCartlist();
-            manager.setVisible(true);
-        });
-    }
+//
+//    public static void main(String[] args) {
+//        SwingUtilities.invokeLater(() -> {
+//            BookCartlist manager = new BookCartlist();
+//            manager.setVisible(true);
+//        });
+//    }
 }
 
 
