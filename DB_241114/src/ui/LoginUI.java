@@ -88,6 +88,26 @@ public class LoginUI extends JFrame {
 	}
 
 	private void handleLogin() {
+
+		String memberID = memberIDField.getText();
+		String password = new String(passwordField.getPassword());
+
+		if (memberID.isEmpty() || password.isEmpty()) {
+			JOptionPane.showMessageDialog(this, "아이디와 비밀번호를 입력하세요.", "오류", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+
+		boolean loginSuccessful = authenticateUser(memberID, password);
+		if (loginSuccessful) {
+	        String userName = userDAO.getUserNameById(memberID); // 사용자 이름 가져오기
+			JOptionPane.showMessageDialog(this, "로그인 성공!", "알림", JOptionPane.INFORMATION_MESSAGE);
+			new MainPage(memberID, userName).setVisible(true);
+			this.dispose();
+			
+		} else {
+			JOptionPane.showMessageDialog(this, "아이디 또는 비밀번호가 잘못되었습니다.", "오류", JOptionPane.ERROR_MESSAGE);
+		}
+    
 	    String memberID = memberIDField.getText();
 	    String password = new String(passwordField.getPassword());
 
