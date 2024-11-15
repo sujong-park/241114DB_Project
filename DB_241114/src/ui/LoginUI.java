@@ -99,6 +99,7 @@ public class LoginUI extends JFrame {
 		boolean loginSuccessful = authenticateUser(memberID, password);
 		if (loginSuccessful) {
 			String userName = userDAO.getUserNameById(memberID); // 사용자 이름 가져오기
+			Search.userNum = userDAO.getUserNoById(memberID);
 			JOptionPane.showMessageDialog(this, "로그인 성공!", "알림", JOptionPane.INFORMATION_MESSAGE);
 			new MainPage(memberID, userName).setVisible(true);
 			this.dispose();
