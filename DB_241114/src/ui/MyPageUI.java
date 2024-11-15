@@ -7,6 +7,7 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class MyPageUI extends JFrame {
@@ -97,7 +98,10 @@ public class MyPageUI extends JFrame {
 
     private void logout() {
         // 로그아웃 처리 로직
-        // new LoginFrame().setVisible(true);
+    	   JOptionPane.showMessageDialog(null, "로그아웃 되었습니다.");
+           dispose();  // 현재 창 닫기 (로그아웃 후 로그인 화면으로 이동)
+     new LoginUI().setVisible(true);
+     
     }
 
     public static void main(String[] args) {
