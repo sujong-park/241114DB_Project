@@ -40,7 +40,7 @@ public class MyRentalList extends JFrame {
         
         
         // 테이블 모델 초기화 (열 이름 정의)
-        String[] columnNames = {"대여번호", "책번호", "책이름", "대여시작일", "대여종료일", "상태"};
+        String[] columnNames = {"대여번호", "책이름", "대여시작일", "대여종료일", "상태"};
         rentalBookTableModel = new DefaultTableModel(columnNames, 0);
         
         // JTable 생성
@@ -79,18 +79,23 @@ public class MyRentalList extends JFrame {
 	    // 현재 날짜
 	    LocalDate currentDate = LocalDate.now();
 
-	    // 날짜 형식 지정 (예시: "yyyy-MM-dd" 형식)
+	    // 날짜 형식 지정
 	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
 	    for (MyRentalDTO rentalDTO : resultList) {
 	        LocalDate rentalEndDate = null;
-	        
+	        LocalDate rentalStartDate = null;
+
 	        try {
-	            // String 타입의 날짜와 시간을 LocalDateTime으로 변환 후, 날짜만 추출
-	            LocalDateTime rentalEndDateTime = LocalDateTime.parse(rentalDTO.getReturnDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S"));
-	            rentalEndDate = rentalEndDateTime.toLocalDate();  // 날짜만 추출
+	            // 대여 종료 날짜 처리 (시간 부분 제거)
+	            String rentalEndDateStr = rentalDTO.getReturnDate().split(" ")[0];  // 날짜만 추출
+	            rentalEndDate = LocalDate.parse(rentalEndDateStr);  // 날짜만 LocalDate로 변환
+
+	            // 대여 시작 날짜 처리 (시간 부분 제거)
+	            String rentalStartDateStr = rentalDTO.getRentalDate().split(" ")[0];  // 날짜만 추출
+	            rentalStartDate = LocalDate.parse(rentalStartDateStr);  // 날짜만 LocalDate로 변환
 	        } catch (DateTimeParseException e) {
-	            System.out.println("Invalid date format for rentalEndDate: " + rentalDTO.getReturnDate());
+	            System.out.println("Invalid date format: " + e.getMessage());
 	        }
 
 	        // 상태 계산
@@ -101,18 +106,24 @@ public class MyRentalList extends JFrame {
 	            status = "대여중";
 	        }
 
+	        // 날짜 출력 형식 변경
+	        String formattedRentalStartDate = rentalStartDate != null ? rentalStartDate.format(formatter) : "N/A";
+	        String formattedReturnDate = rentalEndDate != null ? rentalEndDate.format(formatter) : "N/A";
+
 	        Object[] rowData = {
 	            rentalDTO.getRentalId(),
-	            rentalDTO.getUserId(),
-	            rentalDTO.getBookId(),
-	            rentalDTO.getRentalDate(),
-	            rentalDTO.getReturnDate(),
+	            rentalDTO.getBookName(),
+	            formattedRentalStartDate, // 대여 시작 날짜
+	            formattedReturnDate, // 대여 종료 날짜
 	            status // 상태를 추가
 	        };
 	        
 	        rentalBookTableModel.addRow(rowData);
 	    }
 	}
+
+
+
 
 
 

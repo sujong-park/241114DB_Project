@@ -6,6 +6,10 @@ public class MyRentalDTO {
     private int bookId;
     private String rentalDate;
     private String returnDate;
+    
+    
+    // KBOOKTABLE
+    private String bookName;
 
     // Getter and Setter methods
     public int getRentalId() {
@@ -42,6 +46,13 @@ public class MyRentalDTO {
     public void setReturnDate(String returnDate) { 
     	this.returnDate = returnDate; 
     }
+    
+	public String getBookName() {
+		return bookName;
+	}
+	public void setBookName(String bookName) {
+		this.bookName = bookName;
+	}
     
     
     
