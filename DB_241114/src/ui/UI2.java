@@ -109,6 +109,7 @@ public class UI2 extends JFrame {
 
     private void myPage() {
         // 마이페이지 보기 로직 구현
+    	new MyPageUI().setVisible();
     }
 
     public static void main(String[] args) {
