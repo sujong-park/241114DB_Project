@@ -44,7 +44,28 @@ public class UserDAO {
 		}
 		return false;
 	}
+	
+	// UserDAO 클래스에 메서드 추가
+	public int getUserNoById(String memberID) {
+	    int userNo = -1;
+	    try {
+	        String sql = "SELECT USERNO FROM KUSERTABLE WHERE USERID = ?";
+	        PreparedStatement pstmt = conn.prepareStatement(sql);
+	        pstmt.setString(1, memberID);
+	        ResultSet rs = pstmt.executeQuery();
 
+	        if (rs.next()) {
+	            userNo = rs.getInt("USERNO");  // USERNO 컬럼에서 사용자 번호 가져오기
+	        }
+
+	        rs.close();
+	        pstmt.close();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return userNo;
+	}
+  
 	// 사용자 이름가져오는 메서드
 	public String getUserNameById(String userId) {
 		String sql = "SELECT USERNAME FROM KUSERTABLE WHERE USERID = ?";

@@ -27,6 +27,9 @@ public class UI2 extends JFrame {
         setSize(700, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
+        setLocationRelativeTo(null);
+
+        
 
         JPanel inputPanel = new JPanel();
         inputPanel.setLayout(new FlowLayout());
@@ -102,6 +105,8 @@ public class UI2 extends JFrame {
 
     private void myPage() {
         // 마이페이지 보기 로직 구현
+        this.dispose();
+    	new MyPageUI().setVisible(true);
     }
 
     public static void main(String[] args) {
