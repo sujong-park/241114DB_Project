@@ -108,3 +108,5 @@ public class UI2 extends JFrame {
         new UI2();  // UI 실행
     }
 }
+
+//수정완
