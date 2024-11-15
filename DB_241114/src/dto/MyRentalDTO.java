@@ -1,6 +1,5 @@
 package dto;
 
-
 public class MyRentalDTO {
     private int rentalId;
     private int userId;
