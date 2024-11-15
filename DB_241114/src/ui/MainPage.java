@@ -197,21 +197,21 @@ public class MainPage extends JFrame {
                 new LoginUI().setVisible(true); // 로그인 페이지로 돌아가기
             }
         });
-
-        // 회원탈퇴 버튼 클릭 시 처리
-        withdrawButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int confirm = JOptionPane.showConfirmDialog(null, "정말로 회원 탈퇴를 하시겠습니까?", "회원 탈퇴", JOptionPane.YES_NO_OPTION);
-                if (confirm == JOptionPane.YES_OPTION) {
-                    // DB에서 사용자 정보를 삭제
-                    deleteUserFromDB(userNo);
-                    JOptionPane.showMessageDialog(null, "회원 탈퇴가 완료되었습니다.");
-                    dispose();  // 현재 창 닫기
-                    new LoginUI(); // 로그인 페이지로 이동 (회원 탈퇴 후)
-                }
-            }
-        });
+//
+//        // 회원탈퇴 버튼 클릭 시 처리
+//        withdrawButton.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                int confirm = JOptionPane.showConfirmDialog(null, "정말로 회원 탈퇴를 하시겠습니까?", "회원 탈퇴", JOptionPane.YES_NO_OPTION);
+//                if (confirm == JOptionPane.YES_OPTION) {
+//                    // DB에서 사용자 정보를 삭제
+//                    deleteUserFromDB(userNo);
+//                    JOptionPane.showMessageDialog(null, "회원 탈퇴가 완료되었습니다.");
+//                    dispose();  // 현재 창 닫기
+//                    new LoginUI(); // 로그인 페이지로 이동 (회원 탈퇴 후)
+//                }
+//            }
+//        });
 
         // 패널에 컴포넌트 추가
         mainPanel.add(Box.createVerticalStrut(20));
@@ -233,12 +233,12 @@ public class MainPage extends JFrame {
         setVisible(true);
     }
 
-    // DB에서 사용자 정보 삭제하는 메서드
-    private void deleteUserFromDB(int userNo) {
-        String sql = "DELETE FROM KUSERTABLE WHERE USERNO = " + userNo;
-        // 해당 SQL을 실행하여 DB에서 사용자 정보 삭제
-        CgwDAO.executeUpdateSql(sql);
-    }
+//    // DB에서 사용자 정보 삭제하는 메서드
+//    private void deleteUserFromDB(int userNo) {
+//        String sql = "DELETE FROM KUSERTABLE WHERE USERNO = " + userNo;
+//        // 해당 SQL을 실행하여 DB에서 사용자 정보 삭제
+//        CgwDAO.executeUpdateSql(sql);
+//    }
 
     public static void main1(String[] args) {
         // 로그인된 사용자의 이름과 번호를 예시로 전달 ("홍길동"과 번호 1)
