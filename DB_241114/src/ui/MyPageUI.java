@@ -79,7 +79,7 @@ public class MyPageUI extends JFrame {
     }
 
     private void library() {
-//        this.dispose();
+        this.dispose();
         new UI2().setVisible(true);
     }
 
