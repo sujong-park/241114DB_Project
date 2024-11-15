@@ -117,7 +117,7 @@ public class MainPage extends JFrame {
 
 	public static void main(String[] args) {
 // 로그인된 사용자의 ID와 이름을 예시로 전달 ("12345"와 "홍길동"으로 가정)
-		String loggedInUserId = "12345";
+		String loggedInUserId = "1";
 		String loggedInUsername = "홍길동";
 		new MainPage(loggedInUserId, loggedInUsername);
 	}
