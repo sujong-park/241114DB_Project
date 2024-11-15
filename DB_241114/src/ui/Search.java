@@ -39,7 +39,10 @@ public class Search extends JPanel {
                     parent.tableModel.addRow(data);
                     System.out.println();
                 }
-            }else System.err.println("data is empty");
+            }else {
+                parent.tableModel.setRowCount(0);
+                System.err.println("data is empty");
+            }
 
         }else System.err.println("searchText is empty");
     }
