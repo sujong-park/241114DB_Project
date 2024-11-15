@@ -99,6 +99,8 @@ public class BookCartlist extends JFrame {
         // 컴포넌트 추가
         add(scrollPane, BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.SOUTH);
+        // 화면 중앙에 배치
+        setLocationRelativeTo(null);  // 화면 중앙에 창 배치
     }
 
     private void loadBooks() {

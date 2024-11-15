@@ -70,6 +70,8 @@ public class UI2Cgw extends JFrame {
         northPanel.add(buttonPanel, BorderLayout.CENTER);
 
         add(northPanel, BorderLayout.NORTH);
+        // 화면 중앙에 배치
+        setLocationRelativeTo(null);  // 화면 중앙에 창 배치
 
 
         ViewPanel = new JPanel();
