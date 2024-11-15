@@ -21,7 +21,7 @@ public class MainPage extends JFrame {
         userLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // 버튼 생성 및 이벤트 추가
-        JButton bookRegisterButton = new JButton("도서등록");
+        JButton bookRegisterButton = new JButton("도서관");
         JButton myLibraryButton = new JButton("나의 대여목록");
         JButton cartButton = new JButton("장바구니");
         JButton logoutButton = new JButton("로그아웃");
