@@ -63,11 +63,12 @@ public class KdhBookDAO {
     }
 
     // 특정 책 삭제 메소드
-    public void deleteBookFromCart(int bookNo) {
-        String sql = "DELETE FROM KSHOPPINGCARTTABLE WHERE BOOKNO = ?";
+    public void deleteBookFromCart(int bookNo, int userNo) {
+        String sql = "DELETE FROM KSHOPPINGCARTTABLE WHERE BOOKNO = ? USERNO = ?";
         try (Connection con = DriverManager.getConnection(url, userid, passwd);
              PreparedStatement pstmt = con.prepareStatement(sql)) {
             pstmt.setInt(1, bookNo);
+            pstmt.setInt(2, userNo);
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -75,11 +76,12 @@ public class KdhBookDAO {
     }
 
     // 전체 삭제 메소드
-    public void deleteAllFromCart() {
-        String sql = "DELETE FROM KSHOPPINGCARTTABLE";
+    public void deleteAllFromCart(int userNo) {
+        String sql = "DELETE FROM KSHOPPINGCARTTABLE WHERE USERNO = ?";
         try (Connection con = DriverManager.getConnection(url, userid, passwd);
-             Statement stmt = con.createStatement()) {
-            stmt.executeUpdate(sql);
+        		PreparedStatement pstmt = con.prepareStatement(sql)) {
+        	pstmt.setInt(1, userNo);
+        	pstmt.executeUpdate(sql);
         } catch (SQLException e) {
             e.printStackTrace();
         }
