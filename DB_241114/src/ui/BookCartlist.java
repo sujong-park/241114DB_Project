@@ -69,7 +69,7 @@ public class BookCartlist extends JFrame {
                 int selectedRow = bookTable.getSelectedRow();
                 if (selectedRow != -1) {
                     int bookNo = (int) tableModel.getValueAt(selectedRow, 0);
-                    bookDAO.deleteBookFromCart(bookNo); // 삭제 메소드 호출
+                    bookDAO.deleteBookFromCart(bookNo, Search.userNum); // 삭제 메소드 호출
                     JOptionPane.showMessageDialog(null, "책이 장바구니에서 삭제되었습니다.");
                     loadBooks(); // 삭제 후 책 목록 새로 고침
                 } else {
@@ -84,7 +84,7 @@ public class BookCartlist extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 int confirm = JOptionPane.showConfirmDialog(null, "모든 책을 장바구니에서 삭제하시겠습니까?", "확인", JOptionPane.YES_NO_OPTION);
                 if (confirm == JOptionPane.YES_OPTION) {
-                    bookDAO.deleteAllFromCart(); // 전체 삭제 메소드 호출
+                    bookDAO.deleteAllFromCart(Search.userNum); // 전체 삭제 메소드 호출
                     JOptionPane.showMessageDialog(null, "모든 책이 장바구니에서 삭제되었습니다.");
                     loadBooks(); // 전체 삭제 후 책 목록 새로 고침
                 }
