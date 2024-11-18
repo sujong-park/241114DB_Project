@@ -2,13 +2,11 @@ package ui;
 
 import java.awt.Component;
 import java.awt.Dimension;
-
-import dao.CgwDAO; // DB 작업을 위한 CgwDAO 클래스
-import javax.swing.*;
-import java.awt.*;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -18,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import dao.CgwDAO;
 import dao.UserDAO;
 
 public class MainPage extends JFrame {
@@ -25,22 +24,20 @@ public class MainPage extends JFrame {
 	private UserDAO userDAO; // 인스턴스 선언
 	private String userID;
 	private String userName;
-	private String username; // 사용자 이름
-	private int userNo;
 
 	public MainPage(String userID, String userName) {
 		this.userID = userID; // 필드에 userID 초기화
 		this.userName = userName;
 		setTitle("메인페이지");
-		setSize(1060, 400);
+		setSize(700, 400);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null); // 화면 가운데에 창 배치
 
 		userDAO = new UserDAO(); // 인스턴스 초기화
 
 // 메인 패널 설정
-		JPanel mainPanel = new JPanel();
-		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+		JPanel buttonPanel = new JPanel();
+		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
 
 // 사용자 환영 메시지 설정
 		JLabel userLabel = new JLabel(userName + "님, 환영합니다!");
@@ -51,7 +48,7 @@ public class MainPage extends JFrame {
 		JButton myLibraryButton = new JButton("나의 대여목록");
 		JButton cartButton = new JButton("장바구니");
 		JButton logoutButton = new JButton("로그아웃");
-		JButton withdrawButton = new JButton("회원탈퇴"); // 회원탈퇴 버튼 추가
+		JButton withdrawButton = new JButton("회원탈퇴");
 
 // 버튼의 크기 통일
 		Dimension buttonSize = new Dimension(200, 40);
@@ -61,81 +58,94 @@ public class MainPage extends JFrame {
 		logoutButton.setMaximumSize(buttonSize);
 		withdrawButton.setMaximumSize(buttonSize);
 
-// 각 버튼에 대한 클릭 이벤트 설정
-		bookRegisterButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-// "도서관" 버튼 클릭 시 UI2Cgw 클래스의 인스턴스를 열도록 수정
-				new UI2Cgw(userID, userName); // UI2 클래스의 창 열기
-				dispose(); // MainPage 창 닫기 (선택 사항)
-			}
-		});
+		bookRegisterButton.addActionListener(e -> movelibrary()); // 도서관이동
+		myLibraryButton.addActionListener(e -> myLibrary(2)); // 장바구니
+		cartButton.addActionListener(e -> cart(1));
+		logoutButton.addActionListener(e -> handleLogout());
+		withdrawButton.addActionListener(e -> withdraw());
 
-		myLibraryButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, "나의 미디어목록 페이지로 이동합니다.");
-			}
-		});
-
-// MainPage에서 "장바구니" 버튼 클릭 시
-		cartButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-// BookCartlist 창 열기, MainPage 창은 닫지 않음
-				new BookCartlist().setVisible(true); // BookCartlist 팝업을 띄우기
-// dispose(); 호출을 제거하여 MainPage 창을 닫지 않음
-			}
-		});
-
-		logoutButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, "로그아웃 되었습니다.");
-				handleLogout();
-			}
-		});
-
-		withdrawButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				int confirm = JOptionPane.showConfirmDialog(null, "정말로 회원 탈퇴를 하시겠습니까?", "회원 탈퇴",
-						JOptionPane.YES_NO_OPTION);
-				if (confirm == JOptionPane.YES_OPTION) {
-					deleteUserFromDB(Search.userNum);
-					JOptionPane.showMessageDialog(null, "회원 탈퇴가 완료되었습니다.");
-					dispose(); // 현재 창 닫기
-					new LoginUI(); // 로그인 페이지로 이동 (회원 탈퇴 후)
-				}
-			}
-		});
-
-// 패널에 컴포넌트 추가
-		mainPanel.add(Box.createVerticalStrut(20));
-		mainPanel.add(userLabel); // 환영 메시지 먼저 추가
-		mainPanel.add(Box.createVerticalStrut(20));
-		mainPanel.add(bookRegisterButton);
-		mainPanel.add(Box.createVerticalStrut(10));
-		mainPanel.add(myLibraryButton);
-		mainPanel.add(Box.createVerticalStrut(10));
-		mainPanel.add(cartButton);
-		mainPanel.add(Box.createVerticalStrut(10));
-		mainPanel.add(logoutButton);
-		mainPanel.add(Box.createVerticalStrut(10));
-		mainPanel.add(withdrawButton);
-		mainPanel.add(Box.createVerticalStrut(10));
-		add(mainPanel);
+		buttonPanel.add(Box.createVerticalStrut(20));
+		buttonPanel.add(userLabel); // 환영 메시지 먼저 추가
+		buttonPanel.add(Box.createVerticalStrut(20));
+		buttonPanel.add(bookRegisterButton);
+		buttonPanel.add(Box.createVerticalStrut(10));
+		buttonPanel.add(myLibraryButton);
+		buttonPanel.add(Box.createVerticalStrut(10));
+		buttonPanel.add(cartButton);
+		buttonPanel.add(Box.createVerticalStrut(10));
+		buttonPanel.add(logoutButton);
+		buttonPanel.add(Box.createVerticalStrut(10));
+		buttonPanel.add(withdrawButton);
+		buttonPanel.add(Box.createVerticalStrut(10));
+		add(buttonPanel);
 
 // 프레임에 패널 추가
-		add(mainPanel);
+		add(buttonPanel);
 
 		setVisible(true);
+
 	}
 
-// 로그아웃 메서드
+//도서관
+	private void movelibrary() {
+		this.dispose();
+		new UI2Cgw("id", "pas").setVisible(true);
+	}
+
+//마이페이-대여목록
+	private void myLibrary(int a) {
+		this.dispose();
+		new MyPageUI(a).setVisible(true);
+	}
+
+//마이페이지-장바구니
+	public void cart(int a) {
+		this.dispose();
+		new MyPageUI(a).setVisible(true);
+	}
+
+//로그아웃
 	private void handleLogout() {
 		new LoginUI().setVisible(true);
 		dispose();
+	}
+
+	private void withdraw() {
+		int confirm = JOptionPane.showConfirmDialog(null, "정말로 회원 탈퇴를 하시겠습니까?", "회원 탈퇴", JOptionPane.YES_NO_OPTION);
+		if (confirm == JOptionPane.YES_OPTION) {
+			int num = getUserNo(userID);
+			deleteUserFromDB(num);
+			JOptionPane.showMessageDialog(null, "회원 탈퇴가 완료되었습니다.");
+			dispose(); // 현재 창 닫기
+			new LoginUI(); // 로그인 페이지로 이동 (회원 탈퇴 후)
+		}
+
+	}
+
+	private int getUserNo(String userID) {
+		String sql = "SELECT USERNO FROM KUSERTABLE WHERE USERID = ?";
+		int userNo = -1; // 기본값으로 -1을 설정
+
+// 데이터베이스 연결 설정
+		String url = "jdbc:oracle:thin:@localhost:1521:xe";
+		String userid = "scott";
+		String password = "tiger";
+
+		try (Connection con = DriverManager.getConnection(url, userid, password);
+				PreparedStatement pstmt = con.prepareStatement(sql)) {
+
+			pstmt.setString(1, userID); // ?에 userID 값 설정
+			try (ResultSet rs = pstmt.executeQuery()) {
+				if (rs.next()) {
+					userNo = rs.getInt("USERNO"); // 결과에서 USERNO를 읽어서 저장
+				}
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return userNo; // 조회된 userNo 반환
 	}
 
 	private void deleteUserFromDB(int userNo) {
