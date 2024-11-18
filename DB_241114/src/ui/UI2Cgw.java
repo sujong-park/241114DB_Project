@@ -88,7 +88,7 @@ public class UI2Cgw extends JFrame {
 
 		add(ViewPanel, BorderLayout.CENTER);
 		add(takeButtonPanel, BorderLayout.SOUTH);
-
+		allShow();
 		allShowButton.addActionListener(e -> allShow()); // 전체 책 보기
 		topButton.addActionListener(e -> top()); // TOP10
 		myPageButton.addActionListener(e -> myPage()); // 마이페이지
