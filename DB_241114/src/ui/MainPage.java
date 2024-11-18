@@ -76,23 +76,25 @@ public class MainPage extends JFrame {
 		setVisible(true);
 
 	}
-	//도서관
+
+	// 도서관
 	private void movelibrary() {
 		this.dispose();
-		new UI2().setVisible(true);
-	}
-	//마이페이-대여목록
-	private void myLibrary() {
-		this.dispose();
-		new MyPageUI().setVisible(true);
-	}
-	//마이페이지-장바구니
-	public void cart() {
-		this.dispose();
-		new MyPageUI().setVisible(true);
+		new UI2Cgw("id", "pas").setVisible(true);
 	}
 
-	//로그아웃
+//	//마이페이-대여목록
+//	private void myLibrary() {
+//		this.dispose();
+//		new MyPageUI().setVisible(true);
+//	}
+//	// 마이페이지-장바구니
+//	public void cart() {
+//		this.dispose();
+//		new MyPageUI().setVisible(true);
+//	}
+
+	// 로그아웃
 	private void handleLogout() {
 		new LoginUI().setVisible(true);
 		dispose();
