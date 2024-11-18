@@ -4,21 +4,19 @@ import dao.CgwDAO;
 import dao.CgwSQL;
 
 import javax.swing.*;
-import java.awt.Dimension;
 import java.util.*;
 
 public class Search extends JPanel {
-    JTextField searchTextField = new JTextField();
+    JTextField searchTextField = new JTextField(36);
     JButton searchButton = new JButton("검색");
+    public static int userNum = 1;
+    private final UI2Cgw parent;
+    private String searchTitle;
 
-    public Search() {
+    public Search(UI2Cgw parent) {
+        this.parent = parent;
         setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 
-        searchTextField.setPreferredSize(new Dimension(550, 30));
-        searchTextField.setMaximumSize(new Dimension(550, 30));
-
-        searchButton.setPreferredSize(new Dimension(100, 30));
-        searchButton.setMaximumSize(new Dimension(100, 30));
         searchButton.addActionListener(e -> {
             clickEvent();
         });
@@ -30,17 +28,18 @@ public class Search extends JPanel {
     public void clickEvent() {
         String searchText = searchTextField.getText();
         if (!searchText.isEmpty()) {
-            ArrayList<String> inputData = new ArrayList<>(List.of("%" + searchText + "%"));
-            LinkedHashMap<String, ArrayList<String>> dataMaps = CgwDAO.getData(inputData, CgwSQL.serachSqlType, CgwSQL.searchSql);
+            setSearchSql();
+            ArrayList<String> inputData = new ArrayList<>(Arrays.asList(userNum + "", "%" + searchText + "%"));
+            String searchSql = CgwSQL.getSearchSql(searchTitle);
+            LinkedHashMap<String, ArrayList<String>> dataMaps = CgwDAO.getData(inputData, CgwSQL.searchSqlType, searchSql);
             if (!dataMaps.isEmpty()) {
                 String[][] dataArrays = convertMapTo2DArray(dataMaps);
+                parent.tableModel.setRowCount(0);
                 for (String[] data : dataArrays) {
-                    for (String key : data) {
-                        System.out.print(key + ", ");
-                    }
+                    parent.tableModel.addRow(data);
                     System.out.println();
                 }
-            }
+            }else System.err.println("data is empty");
 
         }else System.err.println("searchText is empty");
     }
@@ -66,12 +65,32 @@ public class Search extends JPanel {
         return result;
     }
 
+    public void setSearchSql() {
+        String comboBoxString = parent.getComboBoxString();
+        if (!comboBoxString.isEmpty()) {
+            switch (comboBoxString) {
+                case "책이름":
+                    searchTitle = "B.BOOKNAME";
+                    break;
+                case "장르":
+                    searchTitle = "G.GENRETABLENAME";
+                    break;
+                case "출판사":
+                    searchTitle = "P.PUBLISHERNAME";
+                    break;
+                case "작가":
+                    searchTitle = "A.AUTHORNAME";
+                    break;
+            }
+        }
+    }
+
     public static void main(String[] args) {
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(800, 200); // 프레임 크기 설정
-        Search search = new Search();
-        frame.add(search);
+//        frame.setSize(800, 200); // 프레임 크기 설정
+//        Search search = new Search();
+//        frame.add(search);
 
         frame.setVisible(true);
     }
