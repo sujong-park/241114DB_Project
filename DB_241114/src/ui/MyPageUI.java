@@ -40,7 +40,7 @@ public class MyPageUI extends JFrame {
 	public MyPageUI() {
 
 		setTitle("마이페이지");
-		setSize(700, 400);
+		setSize(700, 600);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(new BorderLayout());
 		setLocationRelativeTo(null);
