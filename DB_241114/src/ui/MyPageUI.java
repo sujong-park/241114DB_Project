@@ -109,7 +109,7 @@ public class MyPageUI extends JFrame {
 
 	private void library() {
 		this.dispose();
-		new UI2Cgw("id", "pas").setVisible(true);
+		 new UI2Cgw("id", "pas").setVisible(true);
 	}
 
 	public void cart() {
