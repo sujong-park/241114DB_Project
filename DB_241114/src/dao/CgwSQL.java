@@ -107,10 +107,6 @@ public class CgwSQL {
 				B.BOOKNO
 				""";
 
-<<<<<<< HEAD
-        return String.format(searchSql, keyword);
-    }
-=======
 		return String.format(searchSql, keyword);
 	}
 
@@ -126,5 +122,4 @@ public class CgwSQL {
 			""";
 
 	public static ArrayList<Boolean> shoppingCartSqlType = new ArrayList<>(Arrays.asList(false, false, false, false));
->>>>>>> refs/heads/middle
 }

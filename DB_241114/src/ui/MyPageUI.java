@@ -2,6 +2,7 @@ package ui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -26,6 +27,7 @@ import javax.swing.table.DefaultTableModel;
 
 import dao.MyRentalDAO;
 import dto.MyRentalDTO;
+import dao.UserDAO;
 
 public class MyPageUI extends JFrame {
 // 화면에 표시할 패널들을 생성
@@ -38,80 +40,50 @@ public class MyPageUI extends JFrame {
 	private MyRentalDAO rentdao;
 	private JLabel titleLabel;
 
-	public MyPageUI() {
-		setTitle("마이페이지");
-		setSize(700, 400);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setLayout(new BorderLayout());
-		setLocationRelativeTo(null);
-
-// 상단에 "마이페이지" 제목 표시 패널 추가
-		JPanel headerPanel = new JPanel(new BorderLayout());
-		titleLabel = new JLabel("마이페이지", JLabel.LEFT); // 왼쪽 정렬
-		titleLabel.setPreferredSize(new Dimension(700, 50)); // 크기 조정
-		headerPanel.add(titleLabel, BorderLayout.CENTER);
-		add(headerPanel, BorderLayout.NORTH); // 상단에 고정적으로 추가
-
-// 오른쪽 버튼 패널 생성
-		JPanel buttonPanel = new JPanel();
-		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
-		buttonPanel.setPreferredSize(new Dimension(150, 0));
-
-// 버튼 생성 및 크기 고정
-		Dimension buttonSize = new Dimension(100, 50);
-		JButton libraryButton = new JButton("도서관");
-		JButton cartButton = new JButton("장바구니");
-//		JButton infoButton = new JButton("내정보");
-		JButton rentedBooksButton = new JButton("대여중인책");
-		JButton logoutButton = new JButton("로그아웃");
-
-		libraryButton.setMaximumSize(buttonSize);
-		cartButton.setMaximumSize(buttonSize);
-//		infoButton.setMaximumSize(buttonSize);
-		rentedBooksButton.setMaximumSize(buttonSize);
-		logoutButton.setMaximumSize(buttonSize);
-
-		buttonPanel.add(Box.createVerticalStrut(30));
-		buttonPanel.add(libraryButton);
-		buttonPanel.add(Box.createVerticalStrut(10));
-		buttonPanel.add(cartButton);
-		buttonPanel.add(Box.createVerticalStrut(10));
-//		buttonPanel.add(infoButton);
-		buttonPanel.add(Box.createVerticalStrut(10));
-		buttonPanel.add(rentedBooksButton);
-		buttonPanel.add(Box.createVerticalStrut(10));
-		buttonPanel.add(logoutButton);
-		buttonPanel.add(Box.createVerticalGlue());
-
-// 메인 패널 초기화
-		mainPanel = new JPanel(new BorderLayout());
-		add(buttonPanel, BorderLayout.EAST); // 버튼 패널을 오른쪽에 배치
-		add(mainPanel, BorderLayout.CENTER); // 메인 패널 추가
-
-// 버튼 액션 추가
-		libraryButton.addActionListener(e -> library());
-		cartButton.addActionListener(e -> cart());
-//		infoButton.addActionListener(e -> info());
-		rentedBooksButton.addActionListener(e -> rentedBooks());
-		logoutButton.addActionListener(e -> logout());
-
-		setVisible(true);
-	}
-
+	private UserDAO userDAO;
+	
 	public MyPageUI(int a) {
-		if (a == 1) {
-			MyPageUI mypage = new MyPageUI();
-			mypage.cart(); // 특정 조건에 맞게 cart() 호출
-		} else if (a == 2) {
-			MyPageUI mypage = new MyPageUI();
-			mypage.rentedBooks();
-		}
+	    setTitle("마이페이지");
+	    setSize(700, 400);
+	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    setLayout(new BorderLayout());
+	    setLocationRelativeTo(null);
+
+	    userDAO = new UserDAO();
+	    JPanel buttonPanel = new JPanel();
+	    buttonPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+
+	    JButton mainButton = new JButton("메인페이지");
+	    buttonPanel.add(mainButton);
+	    add(buttonPanel, BorderLayout.NORTH);
+
+	    mainPanel = new JPanel(new BorderLayout());
+	    add(mainPanel, BorderLayout.CENTER); // 메인 패널 추가
+
+	    // 버튼 액션
+	    mainButton.addActionListener(e -> mainPage());
+
+	    // 조건에 따라 필요한 화면만 표시
+	    if (a == 1) {
+	        cart();
+	    } else if (a == 2) {
+	        rentedBooks();
+	    }
+
+	    setVisible(true);
 	}
 
-	private void library() {
-		this.dispose();
-		new UI2Cgw("id", "pas").setVisible(true);
+	
+	private void mainPage() {
+	    this.dispose(); // 현재 창 닫기
+	    // 사용자 이름 가져오기
+	    String userId = null; // 테스트용
+	    String userName = userDAO.getUserNameById(userId); // 사용자 이름 가져오기
+
+	    // 새로운 메인 페이지 열기
+	    new MainPage("id", userName).setVisible(true);
 	}
+
 
 	public void cart() {
 		mainPanel.removeAll();
@@ -322,54 +294,47 @@ public class MyPageUI extends JFrame {
 		mainPanel.repaint();
 	}
 
-//	private void info() {
-//
-//	}
+
 
 	private void rentedBooks() {
-		mainPanel.removeAll();
 
-// 새로운 테이블 및 스크롤 패널 생성
+		// 새로운 테이블 및 스크롤 패널 생성
 		columnNames = new String[] { "대여번호", "제목", "대여시작일", "대여종료일", "상태" };
 		tableModel = new DefaultTableModel(columnNames, 0);
+		
 		JTable boardTable = new JTable(tableModel);
 		JScrollPane scrollPane = new JScrollPane(boardTable);
 
-// ViewPanel을 새로 구성하여 mainPanel에 추가
+		// ViewPanel을 새로 구성하여 mainPanel에 추가
 		ViewPanel = new JPanel();
 		ViewPanel.setLayout(new BorderLayout());
-
-		ViewPanel.add(new JLabel("목록"), BorderLayout.NORTH);
+		
 		ViewPanel.add(scrollPane, BorderLayout.CENTER);
 
-// mainPanel에 ViewPanel을 추가 (왼쪽에 위치하도록 설정)
-		mainPanel.add(ViewPanel, BorderLayout.WEST);
+		// mainPanel에 ViewPanel을 추가 (왼쪽에 위치하도록 설정)
+		mainPanel.add(ViewPanel);
 
-// UI 갱신
-		mainPanel.revalidate();
-		mainPanel.repaint();
+		// ---------------------------------------------------
 
-// ---------------------------------------------------
-
-// DAO 객체 초기화
+		// DAO 객체 초기화
 		if (rentdao == null) {
 			rentdao = new MyRentalDAO();
 		}
 
-// 이전 데이터 제거
+		// 이전 데이터 제거
 		tableModel.setRowCount(0);
 
-// 대여 기록 조회
+		// 대여 기록 조회
 		ArrayList<MyRentalDTO> resultList = rentdao.getRentalAllBooks();
 
 		if (resultList.isEmpty()) {
 			System.out.println("No rental records found.");
 		}
 
-// 현재 날짜
+		// 현재 날짜
 		LocalDate currentDate = LocalDate.now();
 
-// 날짜 형식 지정
+		// 날짜 형식 지정
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
 		for (MyRentalDTO rentalDTO : resultList) {
@@ -412,6 +377,6 @@ public class MyPageUI extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		new MyPageUI();
+		new MyPageUI(2);
 	}
 }

@@ -59,7 +59,7 @@ public class MainPage extends JFrame {
 		withdrawButton.setMaximumSize(buttonSize);
 
 		bookRegisterButton.addActionListener(e -> movelibrary()); // 도서관이동
-		myLibraryButton.addActionListener(e -> myLibrary(2)); // 장바구니
+		myLibraryButton.addActionListener(e -> myLibrary()); // 장바구니
 		cartButton.addActionListener(e -> cart(1));
 		logoutButton.addActionListener(e -> handleLogout());
 		withdrawButton.addActionListener(e -> withdraw());
@@ -93,9 +93,9 @@ public class MainPage extends JFrame {
 	}
 
 //마이페이-대여목록
-	private void myLibrary(int a) {
+	private void myLibrary() {
 		this.dispose();
-		new MyPageUI(a).setVisible(true);
+		new MyRentalList().setVisible(true);
 	}
 
 //마이페이지-장바구니

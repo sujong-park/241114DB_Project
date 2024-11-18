@@ -1,6 +1,5 @@
 package dao;
 
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -40,30 +39,6 @@ public class CreateTable {
 				END;
 				""");
 
-<<<<<<< HEAD
-        // 2. 작가, 출판사, 장르 테이블 생성
-        CreateTables.add("""
-                    CREATE TABLE KAUTHORTABLE(
-                        AUTHORNO NUMBER PRIMARY KEY,
-                        AUTHORNAME VARCHAR2(50) NOT NULL
-                    )
-                """);
-        CreateTables.add("""
-                    CREATE SEQUENCE KAUTHORNO_SEQ
-                    START WITH 1
-                    INCREMENT BY 1
-                    NOCACHE
-                    NOCYCLE
-                """);
-        CreateTables.add("""
-                    CREATE OR REPLACE TRIGGER KAUTHORTABLE_TRG
-                    BEFORE INSERT ON KAUTHORTABLE
-                    FOR EACH ROW
-                    BEGIN
-                        :NEW.AUTHORNO := KAUTHORNO_SEQ.NEXTVAL;
-                    END;
-                """);
-=======
 // 2. 작가, 출판사, 장르 테이블 생성
 		CreateTables.add("""
 				CREATE TABLE KAUTHORTABLE(
@@ -86,31 +61,7 @@ public class CreateTable {
 				:NEW.AUTHORNO := KAUTHORNO_SEQ.NEXTVAL;
 				END;
 				""");
->>>>>>> refs/heads/middle
 
-<<<<<<< HEAD
-        CreateTables.add("""
-                    CREATE TABLE KPUBLISHERTABLE(
-                        PUBLISHERNO NUMBER PRIMARY KEY,
-                        PUBLISHERNAME VARCHAR2(50) NOT NULL
-                    )
-                """);
-        CreateTables.add("""
-                    CREATE SEQUENCE KPUBLISHER_SEQ
-                    START WITH 1
-                    INCREMENT BY 1
-                    NOCACHE
-                    NOCYCLE
-                """);
-        CreateTables.add("""
-                    CREATE OR REPLACE TRIGGER KPUBLISHERTABLE_TRG
-                    BEFORE INSERT ON KPUBLISHERTABLE
-                    FOR EACH ROW
-                    BEGIN
-                        :NEW.PUBLISHERNO := KPUBLISHER_SEQ.NEXTVAL;
-                    END;
-                """);
-=======
 		CreateTables.add("""
 				CREATE TABLE KPUBLISHERTABLE(
 				PUBLISHERNO NUMBER PRIMARY KEY,
@@ -132,31 +83,7 @@ public class CreateTable {
 				:NEW.PUBLISHERNO := KPUBLISHER_SEQ.NEXTVAL;
 				END;
 				""");
->>>>>>> refs/heads/middle
 
-<<<<<<< HEAD
-        CreateTables.add("""
-                    CREATE TABLE KGENRETABLE(
-                        GENRETABLENO NUMBER PRIMARY KEY,
-                        GENRETABLENAME VARCHAR2(50) NOT NULL
-                    )
-                """);
-        CreateTables.add("""
-                    CREATE SEQUENCE KGENRETABLE_SEQ
-                    START WITH 1
-                    INCREMENT BY 1
-                    NOCACHE
-                    NOCYCLE
-                """);
-        CreateTables.add("""
-                    CREATE OR REPLACE TRIGGER KGENRETABLE_TRG
-                    BEFORE INSERT ON KGENRETABLE
-                    FOR EACH ROW
-                    BEGIN
-                        :NEW.GENRETABLENO := KGENRETABLE_SEQ.NEXTVAL;
-                    END;
-                """);
-=======
 		CreateTables.add("""
 				CREATE TABLE KGENRETABLE(
 				GENRETABLENO NUMBER PRIMARY KEY,
@@ -178,37 +105,7 @@ public class CreateTable {
 				:NEW.GENRETABLENO := KGENRETABLE_SEQ.NEXTVAL;
 				END;
 				""");
->>>>>>> refs/heads/middle
 
-<<<<<<< HEAD
-        // 3. 책 테이블 생성
-        CreateTables.add("""
-                    CREATE TABLE KBOOKTABLE(
-                        BOOKNO NUMBER PRIMARY KEY,
-                        BOOKNAME VARCHAR2(50) NOT NULL,
-                        AUTHORNO NUMBER,
-                        PUBLISHERNO NUMBER,
-                        FOREIGN KEY (AUTHORNO) REFERENCES KAUTHORTABLE(AUTHORNO),
-                        FOREIGN KEY (PUBLISHERNO) REFERENCES KPUBLISHERTABLE(PUBLISHERNO),
-                        COUNT NUMBER
-                    )
-                """);
-        CreateTables.add("""
-                    CREATE SEQUENCE KBOOKNO_SEQ
-                    START WITH 1
-                    INCREMENT BY 1
-                    NOCACHE
-                    NOCYCLE
-                """);
-        CreateTables.add("""
-                    CREATE OR REPLACE TRIGGER KBOOKTABLE_TRG
-                    BEFORE INSERT ON KBOOKTABLE
-                    FOR EACH ROW
-                    BEGIN
-                        :NEW.BOOKNO := KBOOKNO_SEQ.NEXTVAL;
-                    END;
-                """);
-=======
 // 3. 책 테이블 생성
 		CreateTables.add("""
 				CREATE TABLE KBOOKTABLE(
@@ -236,7 +133,6 @@ public class CreateTable {
 				:NEW.BOOKNO := KBOOKNO_SEQ.NEXTVAL;
 				END;
 				""");
->>>>>>> refs/heads/middle
 
 // 4. 장르-책 매핑 테이블 생성
 		CreateTables.add("""
@@ -346,19 +242,9 @@ public class CreateTable {
 		}
 	}
 
-<<<<<<< HEAD
-    public static void main(String[] args) {
-        createTables();
-//      해당 주석처리한 코드 실행시 모든 테이블, 트리거, 시퀀스 삭제.
-
-//        deleteTable();
-    }
-}
-=======
 	public static void main(String[] args) {
 		deleteTable();
 		createTables();
 // 해당 주석처리한 코드 실행시 모든 테이블, 트리거, 시퀀스 삭제.
 	}
 }
->>>>>>> refs/heads/middle

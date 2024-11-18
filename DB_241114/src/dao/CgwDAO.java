@@ -104,24 +104,6 @@ public class CgwDAO {
 		try (Connection con = DriverManager.getConnection(url, userid, passwd);
 				PreparedStatement stmt = con.prepareStatement(sql)) {
 
-<<<<<<< HEAD
-            while (rs.next()) {
-                for (int i = 1; i <= columnCount; i++) {
-                    String columnName = metaData.getColumnName(i);
-                    String columnValue = rs.getString(i);
-                    if (columnValue == null) {
-                        columnValue = "NULL";
-                    }
-                    data.computeIfAbsent(columnName, k -> new ArrayList<>()).add(columnValue);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        if (data.isEmpty()) System.out.println("Data is empty");
-        return data;
-    }
-=======
 // 가져올 행 수 설정
 			stmt.setFetchSize(100);
 
@@ -184,5 +166,4 @@ public class CgwDAO {
 			System.out.println("Data is empty");
 		return data;
 	}
->>>>>>> refs/heads/middle
 }

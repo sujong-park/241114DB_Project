@@ -12,6 +12,8 @@ import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 
+import dao.UserDAO;
+
 public class UI2Cgw extends JFrame {
 	private JPanel ViewPanel;
 	public DefaultTableModel tableModel;
@@ -22,6 +24,8 @@ public class UI2Cgw extends JFrame {
 	private JTable boardTable;
 	private KdhBookDAO bookDAO = new KdhBookDAO();
 
+	private UserDAO userDAO;
+	
 	public String getComboBoxString() {
 		if (genreComboBox.getSelectedItem() != null) {
 			return genreComboBox.getSelectedItem().toString();
@@ -37,6 +41,8 @@ public class UI2Cgw extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(new BorderLayout());
 
+        userDAO = new UserDAO();
+        
 		JPanel inputPanel = new JPanel();
 		inputPanel.setLayout(new FlowLayout());
 
@@ -58,7 +64,7 @@ public class UI2Cgw extends JFrame {
 
 		JButton allShowButton = new JButton("전체보기");
 		JButton topButton = new JButton("TOP10");
-		JButton myPageButton = new JButton("마이페이지");
+		JButton myPageButton = new JButton("메인페이지");
 
 		buttonPanel.add(allShowButton);
 		buttonPanel.add(topButton);
@@ -91,7 +97,7 @@ public class UI2Cgw extends JFrame {
 
 		allShowButton.addActionListener(e -> allShow()); // 전체 책 보기
 		topButton.addActionListener(e -> top()); // TOP10
-		myPageButton.addActionListener(e -> myPage()); // 마이페이지
+		myPageButton.addActionListener(e -> mainPage()); // 메인페이
 		rentalButton.addActionListener(e -> rentalClick());
 		shoppingCartButton.addActionListener(e -> shoppingCartClick());
 
@@ -114,11 +120,16 @@ public class UI2Cgw extends JFrame {
 		tableModel.setDataVector(dataArrays, columnNames);
 	}
 
-	private void myPage() {
-// 마이페이지 보기 로직 구현
-		this.dispose();
-		new MyPageUI().setVisible(true);
+	private void mainPage() {
+	    this.dispose(); // 현재 창 닫기
+	    // 사용자 이름 가져오기
+	    String userId = null; // 테스트용
+	    String userName = userDAO.getUserNameById(userId); // 사용자 이름 가져오기
+
+	    // 새로운 메인 페이지 열기
+	    new MainPage("id", userName).setVisible(true);
 	}
+
 
 	public void rentalClick() {
 		int selectedRow = boardTable.getSelectedRow();
@@ -153,24 +164,7 @@ public class UI2Cgw extends JFrame {
 			JOptionPane.showMessageDialog(null, "책을 선택해주세요.");
 	}
 
-<<<<<<< HEAD
-    public void rentalClick() {
-        int selectedRow = boardTable.getSelectedRow();
-        if (selectedRow != -1) {
-            Object value = tableModel.getValueAt(selectedRow, 0);
-            int bookNo = Integer.parseInt((String) value);
-            bookDAO.rentBook(bookNo, Search.userNum); // 대여 메소드 호출
-            JOptionPane.showMessageDialog(null, "책이 대여되었습니다.");
-        }
-    }
-
-    public static void main(String[] args) {
-        new UI2Cgw("id", "pas");  // UI 실행
-    }
-}
-=======
 	public static void main(String[] args) {
 		new UI2Cgw("id", "pas"); // UI 실행
 	}
 }
->>>>>>> refs/heads/middle
