@@ -40,7 +40,7 @@ public class MyPageUI extends JFrame {
 	public MyPageUI() {
 
 		setTitle("마이페이지");
-		setSize(700, 600);
+		setSize(700, 400);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(new BorderLayout());
 		setLocationRelativeTo(null);
@@ -116,13 +116,27 @@ public class MyPageUI extends JFrame {
 	}
 
 	public void cart() {
-		mainPanel.removeAll();
+mainPanel.removeAll();
+		
+
+		JPanel buttonPanel = new JPanel();
+        JButton addButton = new JButton("대여");
+        JButton deleteButton = new JButton("삭제");
+        JButton deleteAllButton = new JButton("전체삭제");
 
 		// 테이블 컬럼 설정
 		columnNames = new String[] { "책 번호", "책 이름", "작가", "출판사" };
 		tableModel = new DefaultTableModel(columnNames, 0);
 		bookTable = new JTable(tableModel);
 		JScrollPane scrollPane = new JScrollPane(bookTable);
+		
+		buttonPanel.add(addButton);
+		buttonPanel.add(deleteButton);
+		buttonPanel.add(deleteAllButton);
+
+		// 컴포넌트 추가
+		add(scrollPane, BorderLayout.CENTER);
+		add(buttonPanel, BorderLayout.SOUTH);
 
 		// cartPanel을 새로 생성하여 구성
 		cartPanel = new JPanel();
@@ -136,6 +150,8 @@ public class MyPageUI extends JFrame {
 
 		// UI 갱신
 		mainPanel.revalidate(); // 레이아웃 재계산
+
+
 
 		// ---------------------------------------------------
 
