@@ -41,20 +41,20 @@ public class MainPage extends JFrame {
 
 		// 버튼 생성 및 이벤트 추가
 		JButton bookRegisterButton = new JButton("도서관");
-		JButton myLibraryButton = new JButton("나의 대여목록");
-		JButton cartButton = new JButton("장바구니");
+//		JButton myLibraryButton = new JButton("나의 대여목록");
+//		JButton cartButton = new JButton("장바구니");
 		JButton logoutButton = new JButton("로그아웃");
 
 		// 버튼의 크기 통일
 		Dimension buttonSize = new Dimension(200, 40);
 		bookRegisterButton.setMaximumSize(buttonSize);
-		myLibraryButton.setMaximumSize(buttonSize);
-		cartButton.setMaximumSize(buttonSize);
+//		myLibraryButton.setMaximumSize(buttonSize);
+//		cartButton.setMaximumSize(buttonSize);
 		logoutButton.setMaximumSize(buttonSize);
 
 		bookRegisterButton.addActionListener(e -> movelibrary()); // 도서관이동
-		myLibraryButton.addActionListener(e -> myLibrary()); // 장바구니
-		cartButton.addActionListener(e -> cart()); // 내정보
+//		myLibraryButton.addActionListener(e -> myLibrary()); // 장바구니
+//		cartButton.addActionListener(e -> cart()); // 내정보
 		logoutButton.addActionListener(e -> handleLogout()); // 대여중인 책
 
 		buttonPanel.add(Box.createVerticalStrut(20));
@@ -62,9 +62,9 @@ public class MainPage extends JFrame {
 		buttonPanel.add(Box.createVerticalStrut(20));
 		buttonPanel.add(bookRegisterButton);
 		buttonPanel.add(Box.createVerticalStrut(10));
-		buttonPanel.add(myLibraryButton);
+//		buttonPanel.add(myLibraryButton);
 		buttonPanel.add(Box.createVerticalStrut(10));
-		buttonPanel.add(cartButton);
+//		buttonPanel.add(cartButton);
 		buttonPanel.add(Box.createVerticalStrut(10));
 		buttonPanel.add(logoutButton);
 		buttonPanel.add(Box.createVerticalStrut(10));
