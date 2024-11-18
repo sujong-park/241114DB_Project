@@ -66,7 +66,7 @@ public class MyPageUI extends JFrame {
 		// 버튼 고정 크기 설정
 		libraryButton.setMaximumSize(buttonSize);
 		cartButton.setMaximumSize(buttonSize);
-//		infoButton.setMaximumSize(buttonSize);
+//		infoButton.setMaximumSize(buttonSize); 
 		rentedBooksButton.setMaximumSize(buttonSize);
 		logoutButton.setMaximumSize(buttonSize);
 
