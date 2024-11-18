@@ -2,6 +2,7 @@ package ui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -39,64 +40,48 @@ public class MyPageUI extends JFrame {
 	private JLabel titleLabel;
 
 	public MyPageUI() {
-		setTitle("마이페이지");
-		setSize(700, 400);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setLayout(new BorderLayout());
-		setLocationRelativeTo(null);
+	    setTitle("마이페이지");
+	    setSize(700, 400);
+	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    setLayout(new BorderLayout());
+	    setLocationRelativeTo(null);
 
-// 상단에 "마이페이지" 제목 표시 패널 추가
-		JPanel headerPanel = new JPanel(new BorderLayout());
-		titleLabel = new JLabel("마이페이지", JLabel.LEFT); // 왼쪽 정렬
-		titleLabel.setPreferredSize(new Dimension(700, 50)); // 크기 조정
-		headerPanel.add(titleLabel, BorderLayout.CENTER);
-		add(headerPanel, BorderLayout.NORTH); // 상단에 고정적으로 추가
+	    // 상단 제목 패널
+	    JPanel headerPanel = new JPanel(new BorderLayout());
+	    titleLabel = new JLabel("마이페이지", JLabel.LEFT); // 제목을 왼쪽 정렬
+	    titleLabel.setPreferredSize(new Dimension(700, 50)); // 제목 크기 조정
+	    headerPanel.add(titleLabel, BorderLayout.CENTER);
+	    add(headerPanel, BorderLayout.NORTH); // 상단에 제목 패널 추가
 
-// 오른쪽 버튼 패널 생성
-		JPanel buttonPanel = new JPanel();
-		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
-		buttonPanel.setPreferredSize(new Dimension(150, 0));
+	    // 버튼 패널 생성
+	    JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+	    
+	    // 버튼 생성
+	    JButton libraryButton = new JButton("도서관");
+	    JButton cartButton = new JButton("장바구니");
+	    JButton rentedBooksButton = new JButton("대여중인책");
+	    JButton logoutButton = new JButton("로그아웃");
 
-// 버튼 생성 및 크기 고정
-		Dimension buttonSize = new Dimension(100, 50);
-		JButton libraryButton = new JButton("도서관");
-		JButton cartButton = new JButton("장바구니");
-//		JButton infoButton = new JButton("내정보");
-		JButton rentedBooksButton = new JButton("대여중인책");
-		JButton logoutButton = new JButton("로그아웃");
+	    // 버튼 패널에 추가
+	    buttonPanel.add(libraryButton);
+	    buttonPanel.add(cartButton);
+	    buttonPanel.add(rentedBooksButton);
+	    buttonPanel.add(logoutButton);
 
-		libraryButton.setMaximumSize(buttonSize);
-		cartButton.setMaximumSize(buttonSize);
-//		infoButton.setMaximumSize(buttonSize);
-		rentedBooksButton.setMaximumSize(buttonSize);
-		logoutButton.setMaximumSize(buttonSize);
+	    // 메인 패널 초기화 및 추가
+	    mainPanel = new JPanel(new BorderLayout());
+	    add(buttonPanel, BorderLayout.NORTH); // 버튼 패널을 상단에 추가
+	    add(mainPanel, BorderLayout.CENTER);  // 메인 패널 추가
 
-		buttonPanel.add(Box.createVerticalStrut(30));
-		buttonPanel.add(libraryButton);
-		buttonPanel.add(Box.createVerticalStrut(10));
-		buttonPanel.add(cartButton);
-		buttonPanel.add(Box.createVerticalStrut(10));
-//		buttonPanel.add(infoButton);
-		buttonPanel.add(Box.createVerticalStrut(10));
-		buttonPanel.add(rentedBooksButton);
-		buttonPanel.add(Box.createVerticalStrut(10));
-		buttonPanel.add(logoutButton);
-		buttonPanel.add(Box.createVerticalGlue());
+	    // 버튼 액션 추가
+	    libraryButton.addActionListener(e -> library());
+	    cartButton.addActionListener(e -> cart());
+	    rentedBooksButton.addActionListener(e -> rentedBooks());
+	    logoutButton.addActionListener(e -> logout());
 
-// 메인 패널 초기화
-		mainPanel = new JPanel(new BorderLayout());
-		add(buttonPanel, BorderLayout.EAST); // 버튼 패널을 오른쪽에 배치
-		add(mainPanel, BorderLayout.CENTER); // 메인 패널 추가
-
-// 버튼 액션 추가
-		libraryButton.addActionListener(e -> library());
-		cartButton.addActionListener(e -> cart());
-//		infoButton.addActionListener(e -> info());
-		rentedBooksButton.addActionListener(e -> rentedBooks());
-		logoutButton.addActionListener(e -> logout());
-
-		setVisible(true);
+	    setVisible(true);
 	}
+
 
 	public MyPageUI(int a) {
 		if (a == 1) {

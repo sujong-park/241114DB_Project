@@ -12,6 +12,8 @@ import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 
+import dao.UserDAO;
+
 public class UI2Cgw extends JFrame {
 	private JPanel ViewPanel;
 	public DefaultTableModel tableModel;
@@ -22,6 +24,8 @@ public class UI2Cgw extends JFrame {
 	private JTable boardTable;
 	private KdhBookDAO bookDAO = new KdhBookDAO();
 
+	private UserDAO userDAO; 
+	
 	public String getComboBoxString() {
 		if (genreComboBox.getSelectedItem() != null) {
 			return genreComboBox.getSelectedItem().toString();
@@ -36,6 +40,8 @@ public class UI2Cgw extends JFrame {
 		setSize(700, 400);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(new BorderLayout());
+		
+		userDAO = new UserDAO();
 
 		JPanel inputPanel = new JPanel();
 		inputPanel.setLayout(new FlowLayout());
@@ -114,10 +120,19 @@ public class UI2Cgw extends JFrame {
 		tableModel.setDataVector(dataArrays, columnNames);
 	}
 
+//	private void myPage() {
+//// 마이페이지 보기 로직 구현
+//		this.dispose();
+//		new MyPageUI().setVisible(true);
+//	}
+	
 	private void myPage() {
-// 마이페이지 보기 로직 구현
-		this.dispose();
-		new MyPageUI().setVisible(true);
+	    String memberID = userDAO.getUserNameById(userId);
+	    Search.userNum = userDAO.getUserNoById(memberID);
+
+	    // 현재 창 닫고 메인 페이지로 이동
+	    this.dispose();
+	    new MainPage(memberID, userName).setVisible(true);
 	}
 
 	public void rentalClick() {

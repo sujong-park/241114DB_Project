@@ -8,6 +8,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
@@ -37,8 +38,14 @@ public class MyRentalList extends JFrame {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout()); // 메인 프레임에 BorderLayout 설정
         
+        add(new JLabel("나의 대여 목록"), BorderLayout.NORTH);
         frame.add(new JLabel("나의 대여 목록"), BorderLayout.NORTH);
         
+        JFrame buttonPanel = new JFrame();
+        buttonPanel.setLayout(new BorderLayout());
+        
+        JButton myPageButton = new JButton("메인페이지");
+        buttonPanel.add(myPageButton);
         
         // 테이블 모델 초기화 (열 이름 정의)
         String[] columnNames = {"대여번호", "책이름", "대여시작일", "대여종료일", "상태"};
