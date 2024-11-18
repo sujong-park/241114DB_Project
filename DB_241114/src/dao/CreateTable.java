@@ -43,7 +43,7 @@ public class CreateTable {
         CreateTables.add("""
                     CREATE TABLE KAUTHORTABLE(
                         AUTHORNO NUMBER PRIMARY KEY,
-                        AUTHORNAME VARCHAR2(20) NOT NULL
+                        AUTHORNAME VARCHAR2(50) NOT NULL
                     )
                 """);
         CreateTables.add("""
@@ -65,7 +65,7 @@ public class CreateTable {
         CreateTables.add("""
                     CREATE TABLE KPUBLISHERTABLE(
                         PUBLISHERNO NUMBER PRIMARY KEY,
-                        PUBLISHERNAME VARCHAR2(20) NOT NULL
+                        PUBLISHERNAME VARCHAR2(50) NOT NULL
                     )
                 """);
         CreateTables.add("""
@@ -87,7 +87,7 @@ public class CreateTable {
         CreateTables.add("""
                     CREATE TABLE KGENRETABLE(
                         GENRETABLENO NUMBER PRIMARY KEY,
-                        GENRETABLENAME VARCHAR2(20) NOT NULL
+                        GENRETABLENAME VARCHAR2(50) NOT NULL
                     )
                 """);
         CreateTables.add("""
@@ -110,7 +110,7 @@ public class CreateTable {
         CreateTables.add("""
                     CREATE TABLE KBOOKTABLE(
                         BOOKNO NUMBER PRIMARY KEY,
-                        BOOKNAME VARCHAR2(20) NOT NULL,
+                        BOOKNAME VARCHAR2(50) NOT NULL,
                         AUTHORNO NUMBER,
                         PUBLISHERNO NUMBER,
                         FOREIGN KEY (AUTHORNO) REFERENCES KAUTHORTABLE(AUTHORNO),

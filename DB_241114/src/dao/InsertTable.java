@@ -15,7 +15,7 @@ public class InsertTable {
         InsertData.add("INSERT INTO KUSERTABLE (USERID, USERPASSWORD, USERNAME) VALUES ('user4', 'password4', 'Bob Brown')");
         InsertData.add("INSERT INTO KUSERTABLE (USERID, USERPASSWORD, USERNAME) VALUES ('user5', 'password5', 'Charlie Davis')");
 
-        // 작가 테이블 데이터
+        // 작가 테이블 데이터 20개
         InsertData.add("INSERT INTO KAUTHORTABLE (AUTHORNAME) VALUES ('J.K. Rowling')");
         InsertData.add("INSERT INTO KAUTHORTABLE (AUTHORNAME) VALUES ('하루키 무라카미')");
         InsertData.add("INSERT INTO KAUTHORTABLE (AUTHORNAME) VALUES ('박완서')");
@@ -35,8 +35,9 @@ public class InsertTable {
         InsertData.add("INSERT INTO KAUTHORTABLE (AUTHORNAME) VALUES ('김애란')");
         InsertData.add("INSERT INTO KAUTHORTABLE (AUTHORNAME) VALUES ('Toni Morrison')");
         InsertData.add("INSERT INTO KAUTHORTABLE (AUTHORNAME) VALUES ('정호승')");
+        InsertData.add("INSERT INTO KAUTHORTABLE (AUTHORNAME) VALUES ('Anne Rice')");
 
-        // 출판사 테이블 데이터
+        // 출판사 테이블 데이터 15개
         InsertData.add("INSERT INTO KPUBLISHERTABLE (PUBLISHERNAME) VALUES ('문학동네')");
         InsertData.add("INSERT INTO KPUBLISHERTABLE (PUBLISHERNAME) VALUES ('민음사')");
         InsertData.add("INSERT INTO KPUBLISHERTABLE (PUBLISHERNAME) VALUES ('작가정신')");
@@ -51,8 +52,9 @@ public class InsertTable {
         InsertData.add("INSERT INTO KPUBLISHERTABLE (PUBLISHERNAME) VALUES ('Macmillan')");
         InsertData.add("INSERT INTO KPUBLISHERTABLE (PUBLISHERNAME) VALUES ('Scholastic')");
         InsertData.add("INSERT INTO KPUBLISHERTABLE (PUBLISHERNAME) VALUES ('Farrar, Straus and Giroux')");
+        InsertData.add("INSERT INTO KPUBLISHERTABLE (PUBLISHERNAME) VALUES ('Bloomsbury Publishing')");
 
-        // 장르 테이블 데이터
+        // 장르 테이블 데이터 10개
         InsertData.add("INSERT INTO KGENRETABLE (GENRETABLENAME) VALUES ('소설')");
         InsertData.add("INSERT INTO KGENRETABLE (GENRETABLENAME) VALUES ('에세이')");
         InsertData.add("INSERT INTO KGENRETABLE (GENRETABLENAME) VALUES ('시')");
@@ -64,7 +66,7 @@ public class InsertTable {
         InsertData.add("INSERT INTO KGENRETABLE (GENRETABLENAME) VALUES ('심리학')");
         InsertData.add("INSERT INTO KGENRETABLE (GENRETABLENAME) VALUES ('경제학')");
 
-        // 책 테이블 데이터
+        // 책 테이블 데이터 50개
         InsertData.add("INSERT INTO KBOOKTABLE (BOOKNAME, AUTHORNO, PUBLISHERNO, COUNT) VALUES ('해리 포터와 마법사의 돌', 1, 3, 12)");
         InsertData.add("INSERT INTO KBOOKTABLE (BOOKNAME, AUTHORNO, PUBLISHERNO, COUNT) VALUES ('1984', 5, 5, 8)");
         InsertData.add("INSERT INTO KBOOKTABLE (BOOKNAME, AUTHORNO, PUBLISHERNO, COUNT) VALUES ('노르웨이의 숲', 8, 8, 15)");
