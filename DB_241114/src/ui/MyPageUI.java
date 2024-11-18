@@ -59,14 +59,14 @@ public class MyPageUI extends JFrame {
 		Dimension buttonSize = new Dimension(100, 50);
 		JButton libraryButton = new JButton("도서관");
 		JButton cartButton = new JButton("장바구니");
-		JButton infoButton = new JButton("내정보");
+//		JButton infoButton = new JButton("내정보");
 		JButton rentedBooksButton = new JButton("대여중인책");
 		JButton logoutButton = new JButton("로그아웃");
 
 		// 버튼 고정 크기 설정
 		libraryButton.setMaximumSize(buttonSize);
 		cartButton.setMaximumSize(buttonSize);
-		infoButton.setMaximumSize(buttonSize);
+//		infoButton.setMaximumSize(buttonSize);
 		rentedBooksButton.setMaximumSize(buttonSize);
 		logoutButton.setMaximumSize(buttonSize);
 
@@ -77,7 +77,7 @@ public class MyPageUI extends JFrame {
 		buttonPanel.add(Box.createVerticalStrut(10));
 		buttonPanel.add(cartButton);
 		buttonPanel.add(Box.createVerticalStrut(10));
-		buttonPanel.add(infoButton);
+//		buttonPanel.add(infoButton);
 		buttonPanel.add(Box.createVerticalStrut(10));
 		buttonPanel.add(rentedBooksButton);
 		buttonPanel.add(Box.createVerticalStrut(10));
@@ -97,7 +97,7 @@ public class MyPageUI extends JFrame {
 
 		libraryButton.addActionListener(e -> library()); // 도서관이동
 		cartButton.addActionListener(e -> cart()); // 장바구니
-		infoButton.addActionListener(e -> info()); // 내정보
+//		infoButton.addActionListener(e -> info()); // 내정보
 		rentedBooksButton.addActionListener(e -> rentedBooks()); // 대여중인 책
 		logoutButton.addActionListener(e -> logout()); // 로그아웃
 
