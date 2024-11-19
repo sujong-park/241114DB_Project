@@ -28,6 +28,7 @@ public class MainPage extends JFrame {
 	public MainPage(String userID, String userName) {
 		this.userID = userID; // 필드에 userID 초기화
 		this.userName = userName;
+		
 		setTitle("메인페이지");
 		setSize(700, 400);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
